@@ -1,0 +1,15 @@
+/**
+* ODATA SERVICE DESIGNED AND DEVELOPED BY JATIN BHARATKUMAR DHARANI
+*/
+service namespace "jatin.dharani.applications"{
+"feedbacks.data::feed.feedback" as "feedDetails" navigates ( "tofeedback" as "toUser" )
+delete forbidden;
+"feedbacks.data::feed.userDetails" as "user" navigates ( "tofeedback" as "toFeedback" )
+aggregates always (SUM of "role")
+delete forbidden
+update events ( before "feedbacks.data::beforeUpdate");
+association "tofeedback" with referential constraint principal 
+"user"("empID") multiplicity "1" dependent 
+"feedDetails"("empID.empID") multiplicity "*";
+
+}

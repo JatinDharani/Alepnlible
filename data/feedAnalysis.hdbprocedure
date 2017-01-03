@@ -1,0 +1,21 @@
+PROCEDURE "FeedDB"."feedbacks.data::feedAnalysis"(
+		IN EMPID INTEGER, 
+		OUT ex_feed_table TABLE (
+			"empName" NVARCHAR(60),
+			"feedValue" NVARCHAR(150),
+			"date" DATE
+		)
+	)
+	LANGUAGE SQLSCRIPT
+	SQL SECURITY INVOKER
+	READS SQL DATA
+AS
+BEGIN
+	ex_feed_table = SELECT "empName", 
+				"feedValue", 
+				"date"
+			FROM "FeedDB"."feedbacks.data::feed.feedback" AS f
+				full outer JOIN "FeedDB"."feedbacks.data::feed.userDetails" AS emp12
+				ON  "empID.empID" = "empID"
+			WHERE "empID.empID" = :EMPID;
+END;

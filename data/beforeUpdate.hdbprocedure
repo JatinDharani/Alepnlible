@@ -1,0 +1,19 @@
+PROCEDURE "FeedDB"."feedbacks.data::beforeUpdate" ( IN new1 "FeedDB"."feedbacks.data::feed.userDetails",IN old1 "FeedDB"."feedbacks.data::feed.userDetails", OUT error "FeedDB"."feedbacks.service::error")
+   LANGUAGE SQLSCRIPT
+sql security invoker as
+empIDNew INT;
+empIDOld INT;
+   
+   
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+   select "empID" into empIDNew from :new1;
+   select "empID" into empIDOld from :old1;
+   if(:empIDNew<:empIDOld) then
+  error = select 400 as http_status_code,'invalid ID' error_message,
+'the new value must be larger than the previous' detail from dummy;
+end if;
+END;
+

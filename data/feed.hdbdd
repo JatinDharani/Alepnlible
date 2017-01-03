@@ -1,0 +1,25 @@
+namespace feedbacks.data;
+@Schema: 'FeedDB' 
+context feed {
+   type myKeyType: String(60);
+   Entity userDetails{
+       key empID: Integer;
+       empName :String(60);
+       role:Integer;
+   };
+   Entity feedback{
+    key feedbackID:Integer;
+    feedValue:String(150);
+    date:LocalDate;
+    empID : Association to userDetails;
+    
+   };
+   @nokey
+   Entity feedView{
+    Empid: Association to userDetails;
+    feedbackID:Association to feedback;
+   };
+   View feedDetails as Select from feedback{
+   feedValue , date, empID.empName
+   };
+};

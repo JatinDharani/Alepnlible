@@ -1,0 +1,8 @@
+import = [{
+    cdstable = "feedbacks.data::feed.userDetails"; 
+    schema = "feedDB"; 
+    file = "feedbacks.data:userDetails.csv";
+    header = false;
+    delimField = ","; 
+    delimEnclosing = "\"";
+}];
